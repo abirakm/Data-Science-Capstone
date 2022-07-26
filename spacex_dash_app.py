@@ -81,7 +81,9 @@ def get_pie_chart(entered_site):
 def get_pie_chart(entered_site, selected_payload):
     filtered_df = spacex_df
     if entered_site == 'All Sites':
-        fig = px.scatter(spacex_df,x = 'Payload Mass (kg)', y = 'class',color =  'Booster Version Category', title = 'Correlation between Payload and Success for All Sites')
+        filtered_df =  filtered_df[filtered_df['Payload Mass (kg)'] >= selected_payload[0]]
+        filtered_df =  filtered_df[filtered_df['Payload Mass (kg)'] <= selected_payload[1]]
+        fig = px.scatter(filtered_df,x = 'Payload Mass (kg)', y = 'class',color =  'Booster Version Category', title = 'Correlation between Payload and Success for All Sites')
         return fig
     else:
         # return the outcomes piechart for a selected site
